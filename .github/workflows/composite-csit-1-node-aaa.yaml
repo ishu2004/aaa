@@ -1,0 +1,31 @@
+  name: CSIT-1-Node-Test
+  
+  on:
+    push:
+      branches:
+        - '*'
+  
+  jobs:
+    csit:
+      runs-on: ubuntu-latest
+      # Run the job on an Ubuntu latest runner
+  
+      services:
+        opendaylight:
+          image: ${{ vars.DOCKER_REPOSITORY }}/${{ vars.ODL_IMAGE_NAME_CENTOS }} 
+          env:
+            FEATURES: odl-restconf,odl-daexim-all,odl-netconf-topology,odl-jolokia
+          ports:
+            - 8181:8181
+          options: --name odl-container
+          # Set up a service container for OpenDaylight
+  
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v3
+          # Checkout the code repository
+
+        - name: Run Test
+          uses: ayushishu/releng-docker/.github/action/composite-csit-1-node@ayush
+          with: 
+            project_name: aaa
