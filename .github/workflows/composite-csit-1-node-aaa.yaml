@@ -12,7 +12,7 @@
   
       services:
         opendaylight:
-          image: ${{ vars.DOCKER_REPOSITORY }}/${{ vars.ODL_IMAGE_NAME_CENTOS }} 
+          image: ayushishu/ishu2004
           env:
             FEATURES: odl-integration-compatible-with-all,odl-restconf,odl-bgpcep-bgp,odl-bgpcep-bgp-config-example,odl-bgpcep-data-change-counter
           ports:
