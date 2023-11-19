@@ -49,26 +49,31 @@
           run: sleep 10
 
         - name: Run Test
-          run: |
-            # Define test_suite variable based on the matrix
-            test_suite=${{ matrix.test_suite }}
-            if [ "${{ matrix.test_suite }}" == "daexim" ]; then
-              robot_test_file="./010-special-export.robot 020-import-basic.robot 030-export-basic.robot 040-export-inclusions.robot"
-            elif [ "${{ matrix.test_suite }}" == "distribution" ]; then
-              robot_test_file="karaf_sequence_install.robot karaf_stop.robot size.robot"
-            elif [ "${{ matrix.test_suite }}" == "aaa" ]; then
-              robot_test_file="authn"
-            fi
-            # Run robot tests in the appropriate directory
-            docker exec robot bash -c "git clone https://github.com/opendaylight/integration-test.git &&
-              cd integration-test/csit/suites/${test_suite} &&
-              robot -L debug --variable USER_HOME:/root \
-                --variable WORKSPACE:/home/user \
-                -v BUNDLEFOLDER:karaf-0.18.1 \
-                -v ODL_STREAM:argon \
-                --variable DEFAULT_LINUX_PROMPT:\\\$ \
-                --variable ODL_SYSTEM_USER:user \
-                --variable ODL_SYSTEM_IP:opendaylight \
-                --variable ODL_SYSTEM_1_IP:opendaylight \
-                -v IS_KARAF_APPL:True \
-                $robot_test_file"
+          uses: ayushishu/releng-docker/.github/action/run_robot_test.yaml@ayush
+          with: 
+            test_suite: aaa
+
+             
+          # run: |
+          #   # Define test_suite variable based on the matrix
+          #   test_suite=${{ matrix.test_suite }}
+          #   if [ "${{ matrix.test_suite }}" == "daexim" ]; then
+          #     robot_test_file="./010-special-export.robot 020-import-basic.robot 030-export-basic.robot 040-export-inclusions.robot"
+          #   elif [ "${{ matrix.test_suite }}" == "distribution" ]; then
+          #     robot_test_file="karaf_sequence_install.robot karaf_stop.robot size.robot"
+          #   elif [ "${{ matrix.test_suite }}" == "aaa" ]; then
+          #     robot_test_file="authn"
+          #   fi
+          #   # Run robot tests in the appropriate directory
+          #   docker exec robot bash -c "git clone https://github.com/opendaylight/integration-test.git &&
+          #     cd integration-test/csit/suites/${test_suite} &&
+          #     robot -L debug --variable USER_HOME:/root \
+          #       --variable WORKSPACE:/home/user \
+          #       -v BUNDLEFOLDER:karaf-0.18.1 \
+          #       -v ODL_STREAM:argon \
+          #       --variable DEFAULT_LINUX_PROMPT:\\\$ \
+          #       --variable ODL_SYSTEM_USER:user \
+          #       --variable ODL_SYSTEM_IP:opendaylight \
+          #       --variable ODL_SYSTEM_1_IP:opendaylight \
+                # -v IS_KARAF_APPL:True \
+                # $robot_test_file"
