@@ -14,7 +14,7 @@
         opendaylight:
           image: ${{ vars.DOCKER_REPOSITORY }}/${{ vars.ODL_IMAGE_NAME_CENTOS }} 
           env:
-            FEATURES: odl-restconf,odl-daexim-all,odl-netconf-topology,odl-jolokia
+            FEATURES: odl-integration-compatible-with-all,odl-restconf,odl-bgpcep-bgp,odl-bgpcep-bgp-config-example,odl-bgpcep-data-change-counter
           ports:
             - 8181:8181
           options: --name odl-container
@@ -26,7 +26,7 @@
           # Checkout the code repository
 
         - name: Run Test
-          uses: ayushishu/releng-docker/.github/action/composite-csit-1-node@ayush
+          uses: ishu2004/releng-docker/.github/action/composite-csit-1-node@main
           with: 
             project_name: bgpcep-bgp-ingest-mixed-all
             DOCKER_REPOSITORY: ayushishu
