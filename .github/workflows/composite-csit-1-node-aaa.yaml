@@ -6,7 +6,7 @@
         - '*'
   
   jobs:
-    csit:
+    composite-csit-1-node:
       runs-on: ubuntu-latest
       # Run the job on an Ubuntu latest runner
   
@@ -29,3 +29,6 @@
           uses: ayushishu/releng-docker/.github/action/composite-csit-1-node@ayush
           with: 
             project_name: aaa
+            DOCKER_REPOSITORY: ayushishu
+            ROBOT_IMAGE: robot-base-image
+            
