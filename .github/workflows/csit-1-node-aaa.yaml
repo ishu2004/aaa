@@ -11,11 +11,6 @@
       runs-on: ubuntu-latest
       # Run the job on an Ubuntu latest runner
   
-      strategy:
-        matrix:
-          test_suite: ["daexim", "distribution", "aaa"]
-          # Define a matrix for different test suites
-  
       services:
         opendaylight:
           image: ${{ vars.DOCKER_REPOSITORY }}/${{ vars.ODL_IMAGE_NAME_CENTOS }} 
@@ -41,7 +36,7 @@
             echo "org.jolokia.password=admin" >> /home/user/karaf-0.18.1/etc/org.jolokia.osgi.cfg'
    
         - name: Robot Setup    
-          uses: ayushishu/releng-docker/.github/action/ssh-setup-action@main
+          uses: ayushishu/releng-docker/.github/action/robot-test-action/ssh-setup-action@ayush
           with: 
             docker_repository: ${{ vars.DOCKER_REPOSITORY }}
             robot_image: ${{ vars.ROBOT_IMAGE }}
@@ -52,28 +47,3 @@
           uses: ayushishu/releng-docker/.github/action/run_robot_test.yaml@ayush
           with: 
             test_suite: aaa
-
-             
-          # run: |
-          #   # Define test_suite variable based on the matrix
-          #   test_suite=${{ matrix.test_suite }}
-          #   if [ "${{ matrix.test_suite }}" == "daexim" ]; then
-          #     robot_test_file="./010-special-export.robot 020-import-basic.robot 030-export-basic.robot 040-export-inclusions.robot"
-          #   elif [ "${{ matrix.test_suite }}" == "distribution" ]; then
-          #     robot_test_file="karaf_sequence_install.robot karaf_stop.robot size.robot"
-          #   elif [ "${{ matrix.test_suite }}" == "aaa" ]; then
-          #     robot_test_file="authn"
-          #   fi
-          #   # Run robot tests in the appropriate directory
-          #   docker exec robot bash -c "git clone https://github.com/opendaylight/integration-test.git &&
-          #     cd integration-test/csit/suites/${test_suite} &&
-          #     robot -L debug --variable USER_HOME:/root \
-          #       --variable WORKSPACE:/home/user \
-          #       -v BUNDLEFOLDER:karaf-0.18.1 \
-          #       -v ODL_STREAM:argon \
-          #       --variable DEFAULT_LINUX_PROMPT:\\\$ \
-          #       --variable ODL_SYSTEM_USER:user \
-          #       --variable ODL_SYSTEM_IP:opendaylight \
-          #       --variable ODL_SYSTEM_1_IP:opendaylight \
-                # -v IS_KARAF_APPL:True \
-                # $robot_test_file"
