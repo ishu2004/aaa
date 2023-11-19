@@ -27,7 +27,6 @@
           # Checkout the code repository
   
         - name: Setup Jolokia for AAA
-          if: matrix.test_suite == 'aaa'
           run: |
             # Configure Jolokia for the 'aaa' test suite
             docker exec -i odl-container bash -c \
