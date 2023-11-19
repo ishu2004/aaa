@@ -28,7 +28,7 @@
         - name: Run Test
           uses: ishu2004/releng-docker/.github/action/composite-csit-1-node@main
           with: 
-            project_name: bgpcep-bgp-ingest-mixed-all
+            project_name: bgpcep
             DOCKER_REPOSITORY: ayushishu
             ROBOT_IMAGE: robot-base-image
             
