@@ -1,4 +1,4 @@
-  name: CSIT-1-Node-Test
+  name: com-CSIT-1-Node-Test
   
   on:
     push:
@@ -12,7 +12,7 @@
   
       services:
         opendaylight:
-          image: ayushishu/ishu2004
+          image: ayushishu/odl-centos-image
           env:
             FEATURES: odl-integration-compatible-with-all,odl-restconf,odl-bgpcep-bgp,odl-bgpcep-bgp-config-example,odl-bgpcep-data-change-counter
           ports:
